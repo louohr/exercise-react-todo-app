@@ -28,30 +28,32 @@ function ToDoList() {
 
   // ui
   return (
-    <section className="to-do-list">
-      <h1>To-Do List</h1>
-      <div>
-        <input
-          type="text"
-          placeholder="Enter a new task..."
-          value={newTask}
-          onChange={HandleInputChange}
-        />
-        <button className="add-button" onClick={addTask}>
-          Add a task
-        </button>
-      </div>
-      <ol>
-        {tasks.map((task, index) => (
-          <li key={index}>
-            <span className="text">{task}</span>
-            <button className="delete-btn" onClick={() => deleteTask(index)}>
-              Delete
-            </button>
-          </li>
-        ))}
-      </ol>
-    </section>
+    <body>
+      <section className="to-do-list">
+        <h1>To-Do List</h1>
+        <div>
+          <input
+            type="text"
+            placeholder="Enter a new task..."
+            value={newTask}
+            onChange={HandleInputChange}
+          />
+          <button className="add-button" onClick={addTask}>
+            Add a task
+          </button>
+        </div>
+        <ol>
+          {tasks.map((task, index) => (
+            <li key={index}>
+              <span className="text">{task}</span>
+              <button className="delete-btn" onClick={() => deleteTask(index)}>
+                Delete
+              </button>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </body>
   );
 }
 
