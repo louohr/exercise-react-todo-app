@@ -38,3 +38,8 @@ ol {
 li {
   margin: 10px 0;
 }
+
+.completed .text {
+  text-decoration: line-through;
+  color: gray;
+}

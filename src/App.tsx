@@ -1,32 +1,40 @@
 import { useState } from "react";
 import "./App.css";
 
-// funktion för to do listan
+// Function för To-Do list
 function ToDoList() {
-  const [tasks, setTasks] = useState(["Äta frukost"]);
+  // Update tasks state to hold objects with task text and completion status
+  const [tasks, setTasks] = useState([{ text: "Äta frukost", completed: false }]);
   const [newTask, setNewTask] = useState("");
 
-  // vad användaren skriver in
-  function HandleInputChange(event) {
-    setNewTask(event.target.value); // ändra input
+  // Hanter användar input
+  function HandleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setNewTask(event.target.value); // Update input value
   }
 
-  // lägga till task
+  // Lägga till task
   function addTask() {
     if (newTask.trim() !== "") {
-      setTasks((t) => [...t, newTask]);
-      // clear
-      setNewTask("");
+      setTasks((t) => [...t, { text: newTask, completed: false }]);
+      setNewTask(""); // Clear input
     }
   }
 
-  // ta bort task, index=task
-  function deleteTask(index) {
+  // Radera task efter index
+  function deleteTask(index: number) {
     const updatedTasks = tasks.filter((_, i) => i !== index);
     setTasks(updatedTasks);
   }
 
-  // ui
+  // Toggle task completion
+  function toggleTaskCompletion(index: number) {
+    const updatedTasks = tasks.map((task, i) =>
+      i === index ? { ...task, completed: !task.completed } : task
+    );
+    setTasks(updatedTasks);
+  }
+
+  // UI
   return (
     <body>
       <section className="to-do-list">
@@ -44,8 +52,11 @@ function ToDoList() {
         </div>
         <ol>
           {tasks.map((task, index) => (
-            <li key={index}>
-              <span className="text">{task}</span>
+            <li key={index} className={task.completed ? "completed" : ""}>
+              <span className="text">{task.text}</span>
+              <button className="complete-btn" onClick={() => toggleTaskCompletion(index)}>
+                {task.completed ? "Undo" : "Complete"}
+              </button>
               <button className="delete-btn" onClick={() => deleteTask(index)}>
                 Delete
               </button>
