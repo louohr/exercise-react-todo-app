@@ -30,10 +30,11 @@ button {
   font-size: 1rem;
 }
 
-ol {
+/* numbered list */
+/* ol {
   list-style-type: none;
   padding: 0;
-}
+} */
 
 li {
   margin: 10px 0;
