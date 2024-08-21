@@ -3,11 +3,10 @@ import "./App.css";
 
 // Function för To-Do list
 function ToDoList() {
-  // Update tasks state to hold objects with task text and completion status
-  const [tasks, setTasks] = useState([{ text: "Äta frukost", completed: false }]);
+  const [tasks, setTasks] = useState<{ text: String; completed: boolean }[]>([]);
   const [newTask, setNewTask] = useState("");
 
-  // Hanter användar input
+  // Hantera användar input
   function HandleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     setNewTask(event.target.value); // Update input value
   }
@@ -15,7 +14,7 @@ function ToDoList() {
   // Lägga till task
   function addTask() {
     if (newTask.trim() !== "") {
-      setTasks((t) => [...t, { text: newTask, completed: false }]);
+      setTasks((prevTasks) => [...prevTasks, { text: newTask, completed: false }]);
       setNewTask(""); // Clear input
     }
   }
@@ -29,7 +28,7 @@ function ToDoList() {
   // Toggle task completion
   function toggleTaskCompletion(index: number) {
     const updatedTasks = tasks.map((task, i) =>
-      i === index ? { ...task, completed: !task.completed } : task
+      i == index ? { ...task, completed: !task.completed } : task
     );
     setTasks(updatedTasks);
   }
@@ -55,7 +54,7 @@ function ToDoList() {
             <li key={index} className={task.completed ? "completed" : ""}>
               <span className="text">{task.text}</span>
               <button className="complete-btn" onClick={() => toggleTaskCompletion(index)}>
-                {task.completed ? "Undo" : "Complete"}
+                {task ? "Undo" : "Complete"}
               </button>
               <button className="delete-btn" onClick={() => deleteTask(index)}>
                 Delete
