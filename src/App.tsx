@@ -7,7 +7,7 @@ function ToDoList() {
   const [newTask, setNewTask] = useState("");
 
   // Hantera användar input
-  function HandleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     setNewTask(event.target.value); // Update input value
   }
 
@@ -28,14 +28,14 @@ function ToDoList() {
   // Toggle task completion
   function toggleTaskCompletion(index: number) {
     const updatedTasks = tasks.map((task, i) =>
-      i == index ? { ...task, completed: !task.completed } : task
+      i === index ? { ...task, completed: !task.completed } : task
     );
     setTasks(updatedTasks);
   }
 
   // UI
   return (
-    <body>
+    <div>
       <section className="to-do-list">
         <h1>To-Do List</h1>
         <div>
@@ -43,7 +43,7 @@ function ToDoList() {
             type="text"
             placeholder="Enter a new task..."
             value={newTask}
-            onChange={HandleInputChange}
+            onChange={handleInputChange}
           />
           <button className="add-button" onClick={addTask}>
             Add a task
@@ -54,7 +54,7 @@ function ToDoList() {
             <li key={index} className={task.completed ? "completed" : ""}>
               <span className="text">{task.text}</span>
               <button className="complete-btn" onClick={() => toggleTaskCompletion(index)}>
-                {task ? "Undo" : "Complete"}
+                {task.completed ? "Undo" : "Complete"}
               </button>
               <button className="delete-btn" onClick={() => deleteTask(index)}>
                 Delete
@@ -63,7 +63,7 @@ function ToDoList() {
           ))}
         </ol>
       </section>
-    </body>
+    </div>
   );
 }
 
